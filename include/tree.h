@@ -24,7 +24,7 @@ class Tree {
       permutations.push_back(vect);
     }
   }
-  void insert(Node* root, const std::vector<char>& vect) {
+  void insert(Node* root, std::vector<char>& vect) {
     for (char c : vect) {
       Node* temp = new Node;
       temp->value = c;
@@ -36,14 +36,14 @@ class Tree {
   }
 
  public:
-  explicit Tree(const std::vector<char>& vect) {
+  explicit Tree(std::vector<char>& vect) {
     root = new Node;
     root->isRoot = true;
     insert(root, vect);
     std::vector<char> actual;
     findPermutations(root, actual);
   }
-  std::vector<std::vector<char>> getPermutations() const {
+  std::vector<std::vector<char>> getPermutations() {
     return permutations;
   }
 };
