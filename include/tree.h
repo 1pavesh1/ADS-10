@@ -5,7 +5,7 @@
 #include <vector>
 #include <algorithm>
 class Tree {
-private:
+ private:
     struct Node {
         std::vector<Node*> descendants;
         char Symbol;
@@ -45,7 +45,7 @@ private:
         }
         return *cha;
     }
-public:
+ public:
     explicit Tree(std::vector<char> descendants) : root(nullptr) {
         root = Create(root, descendants);
         std::vector<char> ch;
