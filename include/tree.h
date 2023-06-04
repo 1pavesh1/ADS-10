@@ -2,54 +2,51 @@
 #ifndef INCLUDE_TREE_H_
 #define INCLUDE_TREE_H_
 
-#include <algorithm>
 #include <iostream>
 #include <vector>
 #include <algorithm>
-
 struct Node {
     bool isRoot = false;
     char value;
-    std::vector<Node*> indicator;
+    std::vector<Node*> ptrs;
 };
-
 class Tree {
-private:
-    Node * root;
-    std::vector<std::vector<char>> ps;
-    void insert(Node* root, const std::vector<char>& vec) {
-        for (char c : vec) {
-            Node* tmp = new Node;
-            tmp->value = c;
-            root->indicator.push_back(tmp);
-            std::vector<char> remainingChars(vec);
-            remainingChars.erase(std::find(remainingChars.begin(), \
-                remainingChars.end(), c));
-            insert(tmp, remainingChars);
-        }
+ private:
+    Node* root;
+    std::vector<std::vector<char>> permutations;
+    void findPermutations(Node* root, std::vector<char> vect) {
+         if (!root->isRoot)
+            vect.push_back(root->value);
+         if (root->ptrs.empty()) {
+           permutations.push_back(vect);
+         } else {
+             for (Node* child : root->ptrs) {
+                 findPermutations(child, vect);
+             }
+         }
     }
-    void findPerms(Node* root, std::vector<char> vec) {
-        if (!root->isRoot)
-            vec.push_back(root->value);
-        if (root->indicator.empty()) {
-            ps.push_back(vec);
-        } else {
-            for (Node* child : root->indicator) {
-                findPerms(child, vec);
-            }
+    void insert(Node* root, const std::vector<char>& vect) {
+        for (char c : vect) {
+            Node*temp = new Node;
+            temp->value = c;
+            root->ptrs.push_back(temp);
+            std::vector<char> otherChars(vect);
+            otherChars.erase(std::find(otherChars.begin(), \
+                otherChars.end(), c));
+            insert(temp, otherChars);
         }
     }
 
-public:
-    explicit Tree(const std::vector<char>& vec) {
+ public:
+    explicit Tree(const std::vector<char>& vect) {
         root = new Node;
         root->isRoot = true;
-        insert(root, vec);
-        std::vector<char> current;
-        findPerms(root, current);
+        insert(root, vect);
+        std::vector<char> actual;
+        findPermutations(root, actual);
     }
     std::vector<std::vector<char>> getPermutations() const {
-        return ps;
+        return permutations;
     }
 };
 
