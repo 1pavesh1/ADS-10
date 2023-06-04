@@ -15,15 +15,14 @@ struct Node {
 
 class Tree {
 private:
-  
     Node * root;
-    std::vector<std::vector <char>> ps;
-    void insert(Node* root, const std::vector <char>& vec) {
+    std::vector<std::vector<char>> ps;
+    void insert(Node* root, const std::vector<char>& vec) {
         for (char c : vec) {
             Node* tmp = new Node;
             tmp->value = c;
             root->indicator.push_back(tmp);
-            std::vector <char> remainingChars(vec);
+            std::vector<char> remainingChars(vec);
             remainingChars.erase(std::find(remainingChars.begin(), \
                 remainingChars.end(), c));
             insert(tmp, remainingChars);
@@ -42,15 +41,14 @@ private:
     }
 
 public:
-  
     explicit Tree(const std::vector<char>& vec) {
         root = new Node;
         root->isRoot = true;
         insert(root, vec);
-        std::vector <char> current;
+        std::vector<char> current;
         findPerms(root, current);
     }
-    std::vector<std::vector <char>> getPermutations() const {
+    std::vector<std::vector<char>> getPermutations() const {
         return ps;
     }
 };
