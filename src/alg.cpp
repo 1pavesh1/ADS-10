@@ -1,16 +1,11 @@
 // Copyright 2022 NNTU-CS
 #include  <iostream>
+#include  <vector>
 #include  <fstream>
 #include  <locale>
 #include  <cstdlib>
-#include  <vector>
 #include  "tree.h"
 
-std::vector <char> getPerm(const Tree& tree, int n) {
-    std::vector<std::vector <char> > ps = tree.getPermutations();
-    if (ps.size() >= n) {
-        return ps[n - 1];
-    } else {
-        return {};
-    }
+std::vector<char> getPerm(const Tree& tree, int n) {
+    return tree.func(n - 1);
 }
