@@ -45,8 +45,8 @@ class Tree {
         }
         return *cha;
     }
- 
-public:
+
+ public:
     explicit Tree(std::vector<char> descendants) : root(nullptr) {
         root = Create(root, descendants);
         std::vector<char> ch;
