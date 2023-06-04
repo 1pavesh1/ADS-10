@@ -3,12 +3,13 @@
 #include  <fstream>
 #include  <locale>
 #include  <cstdlib>
+#include  <vector>
 #include  "tree.h"
 
-std::vector<char> getPerm(const Tree& tree, int n) {
-std::vector<std::vector<char>> permutations = tree.getPermutations();
-    if (permutations.size() >= n) {
-      return permutations[n - 1];
+std::vector <char> getPerm(const Tree& tree, int n) {
+    std::vector<std::vector <char> > ps = tree.getPermutations();
+    if (ps.size() >= n) {
+        return ps[n - 1];
     } else {
         return {};
     }
